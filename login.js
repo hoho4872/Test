@@ -1,3 +1,8 @@
+// Supabase Client Initialization
+const SUPABASE_URL = "https://gyyilovrpbjfykmbltuz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TLmFT_jNKJ38-SSZCGGzXw_1nSJI5hD";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     
@@ -78,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     passwordInput.addEventListener('input', validatePassword);
 
     // --- Form Submit Trigger ---
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         // Run validation rules
@@ -103,21 +108,43 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Simulate Submission & Loader
+        // Actual Supabase Integration
         const submitBtn = document.getElementById('submitBtn');
         const originalBtnContent = submitBtn.innerHTML;
         
         submitBtn.disabled = true;
         submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>로그인 중...</span>`;
 
-        setTimeout(() => {
+        try {
+            const userId = userIdInput.value.trim();
+            // 1. Get email using RPC
+            const { data: emailData, error: rpcError } = await supabaseClient.rpc('get_email_by_userid', {
+                p_user_id: userId
+            });
+
+            if (rpcError) throw rpcError;
+            if (!emailData || emailData.length === 0) {
+                throw new Error("존재하지 않는 아이디입니다.");
+            }
+
+            const email = emailData[0].email;
+
+            // 2. Sign in with email and password
+            const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: passwordInput.value
+            });
+
+            if (authError) throw authError;
+            
+            // Redirect to welcome page
+            window.location.href = `welcome.html?userId=${encodeURIComponent(userId)}`;
+        } catch (err) {
+            alert("로그인 실패: " + err.message);
+        } finally {
             // Restore submit button
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnContent;
-            
-            // Redirect to welcome page
-            const userId = userIdInput.value.trim();
-            window.location.href = `welcome.html?userId=${encodeURIComponent(userId)}`;
-        }, 1500);
+        }
     });
 });

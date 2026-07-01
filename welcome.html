@@ -238,23 +238,42 @@
         </main>
     </div>
 
-    <!-- Script to display username from query parameter -->
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Parse query parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get('userId');
-            
+        const SUPABASE_URL = "https://gyyilovrpbjfykmbltuz.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_TLmFT_jNKJ38-SSZCGGzXw_1nSJI5hD";
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.addEventListener('DOMContentLoaded', async () => {
             const displayEl = document.getElementById('user-display-name');
-            if (userId) {
-                displayEl.textContent = userId;
+            
+            // Get current session
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && session.user) {
+                const metadataUserId = session.user.user_metadata?.user_id;
+                if (metadataUserId) {
+                    displayEl.textContent = metadataUserId;
+                } else {
+                    displayEl.textContent = session.user.email.split('@')[0];
+                }
             } else {
-                displayEl.textContent = '학생';
+                // If not logged in, fallback to query param or redirect
+                const urlParams = new URLSearchParams(window.location.search);
+                const userId = urlParams.get('userId');
+                if (userId) {
+                    displayEl.textContent = userId;
+                } else {
+                    alert('로그인이 필요합니다.');
+                    window.location.href = 'login.html';
+                    return;
+                }
             }
 
-            // Logout/Back button redirects to signup page
-            document.getElementById('logoutBtn').addEventListener('click', () => {
-                window.location.href = 'index.html';
+            // Logout/Back button
+            document.getElementById('logoutBtn').addEventListener('click', async () => {
+                await supabaseClient.auth.signOut();
+                window.location.href = 'login.html';
             });
         });
     </script>

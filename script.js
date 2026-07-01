@@ -1,3 +1,8 @@
+// Supabase Client Initialization
+const SUPABASE_URL = "https://gyyilovrpbjfykmbltuz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TLmFT_jNKJ38-SSZCGGzXw_1nSJI5hD";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
     
@@ -216,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     agreeTermsCheckbox.addEventListener('change', validateTerms);
 
     // --- Form Submit Trigger ---
-    signupForm.addEventListener('submit', (e) => {
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         // Run validation rules
@@ -252,25 +257,41 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Simulate Submission & Loader
+        // Actual Supabase Integration
         const submitBtn = document.getElementById('submitBtn');
         const originalBtnContent = submitBtn.innerHTML;
         
         submitBtn.disabled = true;
         submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>가입 요청 중...</span>`;
 
-        setTimeout(() => {
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email: emailInput.value.trim(),
+                password: passwordInput.value,
+                options: {
+                    data: {
+                        user_id: userIdInput.value.trim(),
+                        phone_number: phoneInput.value.trim(),
+                        agree_terms: agreeTermsCheckbox.checked
+                    }
+                }
+            });
+
+            if (error) throw error;
+
             // Show Success Modal
             modalUserId.textContent = userIdInput.value.trim();
             modalEmail.textContent = emailInput.value.trim();
             
             successModal.classList.add('open');
             successModal.setAttribute('aria-hidden', 'false');
-
+        } catch (err) {
+            alert("회원가입 오류: " + err.message);
+        } finally {
             // Restore submit button
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnContent;
-        }, 1500);
+        }
     });
 
     // Redirect to the Welcome page when clicking the button
