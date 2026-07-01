@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영진전문대학교 - 통합로그인</title>
+    <meta name="description" content="영진전문대학교(YJU)의 편리하고 안전한 통합로그인 페이지입니다. 계정을 사용하여 다양한 학사 서비스를 이용해 보세요.">
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Decoration Elements -->
+        <div class="glow-bg glow-1"></div>
+        <div class="glow-bg glow-2"></div>
+
+        <main class="signup-card">
+            <!-- Header Section -->
+            <header class="signup-header">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>YJU</span>
+                </div>
+                <h1>영진전문대학교 로그인</h1>
+                <p class="subtitle">영진전문대학교의 다양한 학사 정보 서비스를 한눈에 확인하세요.</p>
+            </header>
+
+            <!-- Form Section -->
+            <form id="loginForm" novalidate>
+                <!-- 1. 아이디 -->
+                <div class="input-group" id="group-userId">
+                    <label for="userId">아이디</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user field-icon"></i>
+                        <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" required autocomplete="username">
+                        <span class="status-indicator"></span>
+                    </div>
+                    <span class="error-msg" id="userId-error">아이디를 입력해주세요.</span>
+                </div>
+
+                <!-- 2. 비밀번호 -->
+                <div class="input-group" id="group-password">
+                    <label for="password">비밀번호</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock field-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required autocomplete="current-password">
+                        <button type="button" class="pwd-toggle" aria-label="비밀번호 보기/감추기">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <span class="error-msg" id="password-error">비밀번호를 입력해주세요.</span>
+                </div>
+
+                <!-- Login Options Row -->
+                <div class="login-options">
+                    <label class="checkbox-label" for="keepLogin">
+                        <input type="checkbox" id="keepLogin" name="keepLogin">
+                        <span class="custom-checkbox"></span>
+                        <span class="terms-text">로그인 상태 유지</span>
+                    </label>
+                    <a href="#" class="forgot-link">아이디/비밀번호 찾기</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <span>로그인</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <footer class="card-footer">
+                <p>아직 계정이 없으신가요? <a href="index.html" class="login-link">회원가입하기</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="login.js"></script>
+</body>
+</html>

@@ -393,6 +393,26 @@ body {
     font-weight: 700;
 }
 
+/* Login Options Row */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.forgot-link:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
 /* Shake Animation on Error */
 .shake {
     animation: shake 0.4s ease-in-out;
