@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영진전문대학교 - 웰컴 허브</title>
+    <meta name="description" content="영진전문대학교(YJU) 대학 생활을 위한 웰컴 허브 페이지입니다.">
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom Dashboard Overrides */
+        .welcome-card {
+            width: 100%;
+            max-width: 650px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-badge {
+            background: rgba(0, 168, 150, 0.15);
+            border: 1px solid var(--primary-light);
+            color: var(--primary-light);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .user-greeting {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-name-highlight {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        /* Portal Navigation Grid */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .portal-item {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .portal-item:hover {
+            background: rgba(0, 168, 150, 0.08);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .portal-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: rgba(0, 168, 150, 0.15);
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .portal-item:hover .portal-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .portal-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .portal-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .portal-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Success Confetti Animation Box */
+        .celebration-box {
+            position: relative;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .celebration-icon {
+            font-size: 3rem;
+            color: var(--primary-light);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .back-btn:hover {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        @media (max-width: 576px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+            .user-greeting {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container welcome-card">
+        <!-- Decoration Elements -->
+        <div class="glow-bg glow-1"></div>
+        <div class="glow-bg glow-2"></div>
+
+        <main class="signup-card">
+            <!-- Header Section -->
+            <header class="welcome-header">
+                <div class="celebration-box">
+                    <i class="fa-solid fa-graduation-cap celebration-icon"></i>
+                </div>
+                <div class="welcome-badge">Registration Successful</div>
+                <h1 class="user-greeting"><span id="user-display-name" class="user-name-highlight">학생</span>님, 환영합니다!</h1>
+                <p class="subtitle">영진전문대학교 학생 포털에 성공적으로 등록되었습니다.<br>아래 주요 학사 시스템을 확인하고 대학 생활을 시작해보세요.</p>
+            </header>
+
+            <!-- Portal Grid Navigation -->
+            <div class="portal-grid">
+                <a href="#" class="portal-item">
+                    <div class="portal-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <div class="portal-info">
+                        <span class="portal-title">종합 학사정보</span>
+                        <span class="portal-desc">성적, 수강, 출결 확인</span>
+                    </div>
+                </a>
+
+                <a href="#" class="portal-item">
+                    <div class="portal-icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div class="portal-info">
+                        <span class="portal-title">가상 대학 (LMS)</span>
+                        <span class="portal-desc">온라인 학습 및 과제 제출</span>
+                    </div>
+                </a>
+
+                <a href="#" class="portal-item">
+                    <div class="portal-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="portal-info">
+                        <span class="portal-title">도서관 홈페이지</span>
+                        <span class="portal-desc font-korean">자료 검색 및 대출 현황</span>
+                    </div>
+                </a>
+
+                <a href="#" class="portal-item">
+                    <div class="portal-icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div class="portal-info">
+                        <span class="portal-title">대학 공지사항</span>
+                        <span class="portal-desc">학사일정 및 장학 공고</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Footer Action Button -->
+            <button id="logoutBtn" class="back-btn">
+                <i class="fa-solid fa-arrow-left-on-rectangle"></i>
+                <span>로그아웃 (회원가입으로 돌아가기)</span>
+            </button>
+        </main>
+    </div>
+
+    <!-- Script to display username from query parameter -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Parse query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId');
+            
+            const displayEl = document.getElementById('user-display-name');
+            if (userId) {
+                displayEl.textContent = userId;
+            } else {
+                displayEl.textContent = '학생';
+            }
+
+            // Logout/Back button redirects to signup page
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

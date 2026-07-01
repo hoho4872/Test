@@ -1,0 +1,733 @@
+/* Modern CSS Reset & Variable Definitions */
+:root {
+    --primary-color: #00a896;      /* YJU 상징 청록색 (Teal) */
+    --primary-dark: #028090;       /* 청록색 어두운 톤 */
+    --primary-light: #02c39a;      /* 청록색 밝은 톤 (Mint) */
+    --primary-glow: rgba(0, 168, 150, 0.25);
+    
+    --bg-color: #0f172a;           /* 메인 배경색 (Deep Slate) */
+    --card-bg: rgba(30, 41, 59, 0.7); /* 글래스모피즘 카드 배경 (Slate Gray) */
+    --card-border: rgba(255, 255, 255, 0.08);
+    
+    --text-primary: #f8fafc;       /* 기본 텍스트 (Light Gray/White) */
+    --text-muted: #94a3b8;         /* 설명글/부제목 텍스트 */
+    --text-placeholder: #64748b;   
+    
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --input-border: rgba(255, 255, 255, 0.1);
+    --input-focus-border: #00a896;
+    
+    --error-color: #f43f5e;        /* 에러 색상 (Rose/Red) */
+    --error-glow: rgba(244, 63, 94, 0.15);
+    --success-color: #10b981;      /* 성공 색상 (Emerald/Green) */
+    
+    --font-korean: 'Noto Sans KR', sans-serif;
+    --font-english: 'Outfit', sans-serif;
+    --border-radius: 16px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-korean);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 40px 20px;
+}
+
+/* Background Glowing Elements */
+.glow-bg {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 1;
+    opacity: 0.45;
+    pointer-events: none;
+    animation: pulse 12s infinite alternate;
+}
+
+.glow-1 {
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    top: -150px;
+    left: -150px;
+}
+
+.glow-2 {
+    background: radial-gradient(circle, var(--primary-dark) 0%, transparent 70%);
+    bottom: -150px;
+    right: -150px;
+    animation-delay: -6s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.15) translate(30px, 50px); }
+}
+
+/* Sign Up Container */
+.signup-container {
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Glassmorphism Sign Up Card */
+.signup-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: 50px 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Header */
+.signup-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: var(--font-english);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.brand-logo i {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.signup-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.signup-header .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Form Styles */
+#signupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-placeholder);
+    font-size: 1.1rem;
+    transition: var(--transition-smooth);
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: var(--font-korean);
+    transition: var(--transition-smooth);
+    outline: none;
+}
+
+/* For English/Numbers fields */
+#userId, #password, #passwordConfirm {
+    font-family: var(--font-english), var(--font-korean);
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-placeholder);
+    font-size: 0.9rem;
+}
+
+.input-wrapper input:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.input-wrapper input:focus {
+    border-color: var(--input-focus-border);
+    background: rgba(15, 23, 42, 0.85);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+.input-wrapper input:focus ~ .field-icon {
+    color: var(--primary-color);
+}
+
+/* Status Indicator (Check/Cross on validation) */
+.status-indicator {
+    position: absolute;
+    right: 16px;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+    opacity: 0;
+}
+
+/* Password eye toggle */
+.pwd-toggle {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-placeholder);
+    cursor: pointer;
+    padding: 4px;
+    font-size: 1.1rem;
+    transition: var(--transition-smooth);
+    outline: none;
+}
+
+.pwd-toggle:hover {
+    color: var(--text-primary);
+}
+
+/* Correct right spacing when eye icon or indicator is active */
+.input-group#group-password input {
+    padding-right: 48px;
+}
+
+/* Password Strength Bar */
+.pwd-strength-bar {
+    height: 4px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 2px;
+    display: none;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 2px;
+    transition: var(--transition-smooth);
+}
+
+.strength-fill.weak { width: 33.3%; background-color: var(--error-color); }
+.strength-fill.medium { width: 66.6%; background-color: #f59e0b; }
+.strength-fill.strong { width: 100%; background-color: var(--success-color); }
+
+/* Error Message */
+.error-msg {
+    font-size: 0.8rem;
+    color: var(--error-color);
+    margin-top: 2px;
+    display: none;
+    align-items: center;
+    gap: 4px;
+    animation: fadeIn 0.3s ease;
+}
+
+.error-msg::before {
+    content: "\f071";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Input Validation States */
+.input-group.invalid input {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 4px var(--error-glow);
+}
+
+.input-group.invalid .field-icon {
+    color: var(--error-color);
+}
+
+.input-group.invalid .error-msg {
+    display: flex;
+}
+
+.input-group.valid input {
+    border-color: var(--success-color);
+}
+
+.input-group.valid .status-indicator {
+    opacity: 1;
+    color: var(--success-color);
+}
+
+.input-group.valid .status-indicator::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+/* Terms Container */
+.terms-container {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input {
+    display: none;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--input-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    background: var(--input-bg);
+    margin-top: 2px;
+}
+
+.checkbox-label input:checked + .custom-checkbox {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.custom-checkbox::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: white;
+    font-size: 0.75rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: var(--transition-smooth);
+}
+
+.checkbox-label input:checked + .custom-checkbox::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.terms-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.terms-text .required {
+    color: var(--primary-light);
+    font-weight: 700;
+}
+
+/* Shake Animation on Error */
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* Submit Button */
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 10px 20px -10px rgba(0, 168, 150, 0.4);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -10px rgba(0, 168, 150, 0.6);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}
+
+.submit-btn i {
+    transition: var(--transition-smooth);
+}
+
+.submit-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* Card Footer */
+.card-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.login-link {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 4px;
+    transition: var(--transition-smooth);
+}
+
+.login-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Success Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.open .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+/* Registered Info Block */
+.registered-info {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.9rem;
+}
+
+.info-row:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-label {
+    color: var(--text-muted);
+}
+
+.info-value {
+    color: var(--primary-light);
+    font-weight: 700;
+    font-family: var(--font-english);
+}
+
+.modal-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 168, 150, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.modal-btn:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 6px 16px rgba(0, 168, 150, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Animated Success Checkmark */
+.success-checkmark {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.success-checkmark .check-icon {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 4px solid var(--success-color);
+}
+
+.success-checkmark .check-icon::before,
+.success-checkmark .check-icon::after {
+    content: '';
+    height: 100px;
+    position: absolute;
+    background: #1e293b;
+    transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon::before {
+    width: 30px;
+    height: 120px;
+    background: #1e293b;
+    border-radius: 100px 0 0 100px;
+    top: -12px;
+    left: -30px;
+    transform-origin: 100% 50%;
+    transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon::after {
+    width: 60px;
+    height: 120px;
+    background: #1e293b;
+    border-radius: 0 100px 100px 0;
+    top: -20px;
+    left: 30px;
+    transform-origin: 0 50%;
+    transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon .icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-sizing: content-box;
+    position: absolute;
+    z-index: 2;
+    top: -4px;
+    left: -4px;
+}
+
+.success-checkmark .check-icon .icon-fix {
+    width: 5px;
+    height: 90px;
+    background: #1e293b;
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    left: 28px;
+    transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon .icon-line {
+    height: 5px;
+    background-color: var(--success-color);
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+}
+
+.success-checkmark .check-icon .icon-line.line-tip {
+    width: 25px;
+    left: 14px;
+    top: 43px;
+    transform: rotate(45deg);
+}
+
+.success-checkmark .check-icon .icon-line.line-long {
+    width: 47px;
+    right: 8px;
+    top: 38px;
+    transform: rotate(-45deg);
+}
+
+/* Modal and checkmark keyframe animations */
+.modal-overlay.open .success-checkmark .check-icon::before {
+    animation: rotate-circle 4.25s ease-in;
+}
+
+.modal-overlay.open .success-checkmark .check-icon::after {
+    animation: rotate-circle 4.25s ease-in;
+}
+
+.modal-overlay.open .success-checkmark .check-icon .icon-line.line-tip {
+    animation: icon-line-tip 0.75s;
+}
+
+.modal-overlay.open .success-checkmark .check-icon .icon-line.line-long {
+    animation: icon-line-long 0.75s;
+}
+
+@keyframes icon-line-tip {
+    0% { width: 0; left: 1px; top: 19px; }
+    54% { width: 0; left: 1px; top: 19px; }
+    70% { width: 50px; left: -8px; top: 37px; }
+    84% { width: 17px; left: 21px; top: 48px; }
+    100% { width: 25px; left: 14px; top: 43px; }
+}
+
+@keyframes icon-line-long {
+    0% { width: 0; right: 46px; top: 54px; }
+    65% { width: 0; right: 46px; top: 54px; }
+    84% { width: 55px; right: 0px; top: 35px; }
+    100% { width: 47px; right: 8px; top: 38px; }
+}
+
+@keyframes rotate-circle {
+    0% { transform: rotate(-45deg); }
+    5% { transform: rotate(-45deg); }
+    12% { transform: rotate(-405deg); }
+    100% { transform: rotate(-405deg); }
+}
+
+/* Responsive adjustment */
+@media (max-width: 576px) {
+    body {
+        padding: 20px 10px;
+    }
+    .signup-card {
+        padding: 30px 20px;
+    }
+}
