@@ -128,6 +128,11 @@ body {
     margin-bottom: 12px;
 }
 
+.brand-logo-img {
+    height: 32px;
+    width: auto;
+}
+
 .brand-logo i {
     background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
     -webkit-background-clip: text;
